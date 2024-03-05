@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { endpoints } from "../api/api";
 
-export default function CreateDir() {
+interface CreateDirProps {
+  onFolderCreated: () => void;
+}
+
+export default function CreateDir({ onFolderCreated }: CreateDirProps) {
   const [folderName, setFolderName] = useState("");
   const [error, setError] = useState("");
 
@@ -11,7 +15,7 @@ export default function CreateDir() {
 
   const createFolder = async () => {
     if (!folderName.trim()) {
-      setError("El nombre del directorio no puede estar vacío");
+      setError("Directory name cannot be empty");
       return;
     }
 
@@ -25,30 +29,42 @@ export default function CreateDir() {
       });
 
       if (response.ok) {
-        console.log("Carpeta creada exitosamente");
+        console.log("Folder created succesfully");
         setFolderName("");
         setError("");
+        onFolderCreated();
       } else {
-        console.error("Error al crear la carpeta");
-        setError("Error al crear la carpeta. Por favor, inténtalo de nuevo.");
+        console.error("Error loading folder");
+        setError("Error creating folder please try again.");
       }
     } catch (error) {
-      console.error("Error al realizar la solicitud:", error);
-      setError(
-        "Error al realizar la solicitud. Por favor, inténtalo de nuevo."
-      );
+      console.error("Error when making request", error);
+      setError("Error when making the request. Please try again.");
     }
-  };    
+  };
 
   return (
     <div className="container">
-      <input
-        type="text"
-        value={folderName}
-        onChange={handleInputChange}
-        placeholder="Nombre del directorio"
-      />
-      <button onClick={createFolder}>Crear Carpeta</button>
+      <div>
+        <label className="form-label mt-5">Upload Files</label>
+        <input className="form-control w-25" type="file" />
+      </div>
+      <div>
+        <label className="form-label mt-4">Create Dir</label>
+        <input
+          className="form-control w-50"
+          value={folderName}
+          onChange={handleInputChange}
+          placeholder="Directory name"
+        />
+        <button
+          type="button"
+          className="btn btn-primary mt-2"
+          onClick={createFolder}
+        >
+          Create
+        </button>
+      </div>
       {error && <div style={{ color: "red" }}>{error}</div>}
     </div>
   );
