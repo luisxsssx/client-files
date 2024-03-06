@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { endpoints } from "../api/api";
 
 interface CreateDirProps {
-  onFolderCreated: () => void;
+  onFolderCreated: (newFolder: string) => void;
 }
 
 export default function CreateDir({ onFolderCreated }: CreateDirProps) {
@@ -29,10 +29,10 @@ export default function CreateDir({ onFolderCreated }: CreateDirProps) {
       });
 
       if (response.ok) {
-        console.log("Folder created succesfully");
+        console.log("Folder created successfully");
         setFolderName("");
         setError("");
-        onFolderCreated();
+        onFolderCreated(folderName);
       } else {
         console.error("Error loading folder");
         setError("Error creating folder please try again.");
