@@ -1,0 +1,7 @@
+.hover-icon {
+    visibility: hidden;
+}
+
+.list-group-item:hover .hover-icon {
+    visibility: visible;
+}
