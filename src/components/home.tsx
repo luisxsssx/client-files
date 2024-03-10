@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CreateDir from "./createDir";
 import GetFolders from "../components/getFolders";
+import Header from "./header";
 
 export default function Home() {
   const [folders, setFolders] = useState<string[]>([]);
@@ -10,7 +11,8 @@ export default function Home() {
   };
 
   return (
-    <div className="container-lg">
+    <div className="container">
+      <Header title="HOME CLOUD" />
       <CreateDir onFolderCreated={handleFolderCreated} />
       <hr />
       <GetFolders folders={folders} />

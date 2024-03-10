@@ -46,10 +46,6 @@ export default function CreateDir({ onFolderCreated }: CreateDirProps) {
   return (
     <div className="container">
       <div>
-        <label className="form-label mt-5">Upload Files</label>
-        <input className="form-control w-25" type="file" />
-      </div>
-      <div>
         <label className="form-label mt-4">Create Dir</label>
         <input
           className="form-control w-50"
