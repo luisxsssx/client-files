@@ -2,20 +2,16 @@ import { Link } from "react-router-dom";
 import backIcon from "../assets/back.svg";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import CreateDir from "./createDir";
 import GetFiles from "./getFiles";
 import Upload from "./upload";
 import Header from "./header";
 import FileManipulator from "./fileManipulator";
 
-interface GetFilesProps {
-  files: string[];
-  onSelectFile: (fileName: string) => void; // Cambiar el nombre de la propiedad a onSelectFile
-}
 
 export default function FolderContent() {
   const { folderName } = useParams<{ folderName?: string }>();
   const [files, setFiles] = useState<string[]>([]);
+  //const [folders, setFolders] = useState<string[]>([]);
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
   useEffect(() => {
@@ -34,8 +30,10 @@ export default function FolderContent() {
     setSelectedFile(fileName);
   };
 
+ 
+
   return (
-    <div className="container ">
+    <div className="container">
       <div className="d-flex align-items-center">
         <Link to="/" className="mr-3">
           <img src={backIcon} alt="BackIcon" />
@@ -44,18 +42,14 @@ export default function FolderContent() {
       </div>
       <hr />
       {folderName && (
-        <Upload folderName={folderName} onFileUploaded={handleFileUploaded} />
+        <>
+          <Upload folderName={folderName} onFileUploaded={handleFileUploaded} />
+         
+        </>
       )}
-      <CreateDir
-        onFolderCreated={(newFolder: string): void => {
-          console.log("New folder created:", newFolder);
-        }}
-      />
       <hr />
-      {/* Corregir el manejo de la selección de archivos */}
       <GetFiles files={files} onSelectFile={handleFileSelected} />
       <hr />
-      {/* Renderizar el FileManipulator solo si hay un archivo seleccionado */}
       {selectedFile && (
         <FileManipulator
           fileName={selectedFile}

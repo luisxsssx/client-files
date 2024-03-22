@@ -3,9 +3,13 @@ import { endpoints } from "../api/api";
 
 interface CreateDirProps {
   onFolderCreated: (newFolder: string) => void;
+  parentDir?: string;
 }
 
-export default function CreateDir({ onFolderCreated }: CreateDirProps) {
+export default function CreateDir({
+  onFolderCreated,
+  parentDir,
+}: CreateDirProps) {
   const [folderName, setFolderName] = useState("");
   const [error, setError] = useState("");
 
@@ -20,12 +24,16 @@ export default function CreateDir({ onFolderCreated }: CreateDirProps) {
     }
 
     try {
+      const requestBody = new URLSearchParams();
+      requestBody.append("parentDir", parentDir || "");
+      requestBody.append("newDirName", folderName);
+
       const response = await fetch(endpoints.files.createDir, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `dir=${encodeURIComponent(folderName)}`,
+        body: requestBody.toString(),
       });
 
       if (response.ok) {

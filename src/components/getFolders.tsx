@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 interface GetFoldersProps {
   folders: string[];
+  onFolderCreated: (newFolder: string) => void; // Nueva prop para manejar la creación de carpetas
 }
 
 export default function GetFolders({
   folders: initialFolders,
+  onFolderCreated, // Agregar la prop a los argumentos de la función
 }: GetFoldersProps) {
   const [folders, setFolders] = useState<string[]>(initialFolders);
   const [hoveredFolder, setHoveredFolder] = useState<string | null>(null);

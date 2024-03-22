@@ -6,6 +6,7 @@ export const endpoints = {
     upload: (folderPath: string) =>
       `${API_BASE_URL}/upload?dir=${encodeURIComponent(folderPath)}`,
     getFolders: `${API_BASE_URL}/getAllFiles`,
+    //getFolders: `${API_BASE_URL}/getFolders`,
     getFiles: (getFilePath: string) =>
       `${API_BASE_URL}/getFiles?dir=${encodeURIComponent(getFilePath)}`,
     download: (folder: string, fileName: string) =>
